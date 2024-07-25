@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+public class ContaBancaria {
+    private double saldo;
+
+    public ContaBancaria(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Depósito de " + valor + " realizado com sucesso.");
+        } else {
+            System.out.println("Valor de depósito inválido.");
+        }
+    }
+
+    public void sacar(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            System.out.println("Saque de " + valor + " realizado com sucesso.");
+        } else {
+            System.out.println("Saldo insuficiente ou valor inválido.");
+        }
+    }
+
+    public void verificarSaldo() {
+        System.out.println("Saldo atual: " + saldo);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bem-vindo ao Banco Java!");
+
+        // Cria uma conta bancária com saldo inicial de 100
+        ContaBancaria conta = new ContaBancaria(100);
+
+        while (true) {
+            System.out.println("\nEscolha uma opção:");
+            System.out.println("1. Depositar");
+            System.out.println("2. Sacar");
+            System.out.println("3. Verificar saldo");
+            System.out.println("4. Sair");
+
+            int opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o valor a ser depositado: ");
+                    double valorDeposito = scanner.nextDouble();
+                    conta.depositar(valorDeposito);
+                    break;
+                case 2:
+                    System.out.print("Digite o valor a ser sacado: ");
+                    double valorSaque = scanner.nextDouble();
+                    conta.sacar(valorSaque);
+                    break;
+                case 3:
+                    conta.verificarSaldo();
+                    break;
+                case 4:
+                    System.out.println("Obrigado por usar nossos serviços. Volte sempre!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+}
